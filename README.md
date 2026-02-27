@@ -1,3 +1,7 @@
+![PHP](https://img.shields.io/badge/PHP-Backend-blue)
+![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
+![Status](https://img.shields.io/badge/Status-Active-success)
+
 # SkyResearch Foundation Website 🚀
 
 A modern PHP + MySQL based internship application website with responsive UI, program section, and contact form with popup notifications.
