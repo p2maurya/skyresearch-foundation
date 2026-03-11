@@ -1,18 +1,23 @@
 <?php
-include 'db.php'; // yeh wahi connection file hai jo humne banaya tha
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
+include 'db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $name = mysqli_real_escape_string($conn, $_POST['fullName']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+    $phone = mysqli_real_escape_string($conn, $_POST['phone_number']);
     $message = mysqli_real_escape_string($conn, $_POST['message']);
 
-    $sql = "INSERT INTO contacts (name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')";
+    $sql = "INSERT INTO contacts (name, email, message) 
+            VALUES ('$name', '$email', '$message')";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: index.php?status=success");
+        echo "Success";
     } else {
-        header("Location: index.php?status=error");
+        echo "Error: " . mysqli_error($conn);
     }
+
 }
+
 ?>

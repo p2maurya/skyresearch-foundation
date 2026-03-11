@@ -2274,16 +2274,25 @@ h2.animate-on-scroll,
     
 
     <section class="contact" id="contactUs">
-        <h2>Collaborate with Us</h2>
-        <form id="contactForm" method="POST" action="submit.php">
-            <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
-            <input type="email" id="email" name="email" placeholder="Email Address" required>
-            <input type="number" id="phone_number" name="phone_number" placeholder="Phone Number" required>
-            <textarea id="message" name="message" placeholder="Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-        <p id="responseMessage"></p>
-    </section>
+    <h2>Collaborate with Us</h2>
+
+    <form id="contactForm" method="POST" action="submit.php">
+
+        <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
+
+        <input type="email" id="email" name="email" placeholder="Email Address" required>
+
+        <input type="number" id="phone_number" name="phone_number" placeholder="Phone Number" required>
+
+        <textarea id="message" name="message" placeholder="Message" required></textarea>
+
+        <button type="submit">Send Message</button>
+
+    </form>
+
+    <p id="responseMessage"></p>
+
+</section>
 
     <!-- Publishers -->
     <section class="publishers">

@@ -1,11 +1,14 @@
 <?php
 
-$conn = new mysqli("localhost","root","","gudsky")
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "skyresearch";
 
-if($conn->connect_error){
+$conn = mysqli_connect($host, $user, $password, $database, 3307);
 
-die("Connection failed")
-
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
 ?>
