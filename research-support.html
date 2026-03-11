@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Research Support – Gudsky</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="research-support.css">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f4f6fb;
+  color: #1b2433;
+}
+
+/* Navbar */
+header {
+  background: #fff;
+  padding: 8px 18px;
+  position: relative;
+  /* keep it on top so hero sits under it */
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 500;
+  /* allow header to grow rather than force fixed height
+       (important: menu can either expand header or menu overlays page) */
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.navbar .logo {
+  color: white;
+  font-weight: bold;
+}
+
+.inter-adi {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.navbar .logo img {
+  max-height: 50px;
+  width: auto;
+  display: block;
+}
+
+/* Desktop nav default */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar ul li a {
+  color: #111;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 6px 4px;
+  line-height: 1;
+  font-family: "Inter", sans-serif;
+}
+
+.nav-cta {
+  border: 1px solid #1E40AF;
+  border-radius: 10px;
+  color: #1E40AF;
+}
+
+.nav-cta-one {
+  font-weight: bold;
+  color: #1E40AF;
+}
+
+/* ---------- HAMBURGER (mobile only) ---------- */
+/* default: hide hamburger on desktop; show only on mobile */
+.hamburger {
+  display: none;
+  /* changed: don't show on desktop by default */
+  background: white;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: 12px;
+  z-index: 1100;
+  /* ensure it's above the menu */
+}
+
+/* bars */
+.hamburger .bar {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  margin: 5px 0;
+  background: black;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* transform to "X" when open */
+.hamburger.open .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hamburger.open .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ========== MOBILE NAV ========== */
+/* Activate at mobile widths */
+@media (max-width: 768px) {
+
+  /* show hamburger button on mobile */
+  .hamburger {
+    display: block;
+  }
+
+  /* Layout tweaks for navbar */
+  .navbar {
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  /* Make the nav an overlay that drops down from the header.
+       Using absolute positioning avoids header height clipping.
+       The nav will be limited to the viewport height and will scroll if content is long. */
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1040;
+    /* above header content but below hamburger if needed */
+    width: 100%;
+    list-style: none;
+    margin: 8px 0 0 0;
+    padding: 0;
+    overflow: hidden;
+    /* visually collapsed when closed */
+    max-height: 0;
+    /* collapsed */
+    display: flex;
+    /* keep it rendered */
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background-color: white;
+    /* visible overlay */
+    transition: max-height 320ms ease, padding 220ms ease;
+    box-shadow: 0 8px 20px rgba(2, 8, 23, 0.08);
+    border-radius: 8px;
+    /* allow vertical scrolling for long menus when open */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* soft clip so we don't exceed viewport visually */
+    max-width: 100%;
+  }
+
+  /* expanded state (JS toggles this class)
+       Use calc(100vh - headerHeight) to occupy available viewport without covering the header */
+  .nav-links.open {
+    max-height: calc(100vh - 64px);
+    /* full viewport minus header */
+    padding: 12px 12px 18px 12px;
+  }
+
+  /* keep each item spaced comfortably */
+  .nav-links li {
+    width: auto;
+    margin: 6px 0;
+  }
+
+  .nav-links li a {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 15px;
+    color: #111;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* Make sure logo doesn't get too big on mobile */
+  .navbar .logo img {
+    max-height: 48px;
+    width: auto;
+    display: block;
+  }
+
+  /* adjust hero spacing to avoid overlap */
+  .about-hero {
+    padding-top: 60px;
+    padding-left: 18px;
+    padding-right: 18px;
+    height: auto;
+  }
+}
+
+/* extra tiny tweak */
+@media (max-width: 380px) {
+  .navbar .logo img {
+    max-height: 45px;
+  }
+
+  .nav-links li a {
+    font-size: 14px;
+    padding: 7px 10px;
+  }
+}
+
+/* Prevent horizontal scrollbars and white space on mobile */
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure desktop nav behaves correctly across all browsers */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* remove duplicate/overlapping mobile blocks (we already defined mobile styles above) */
+/* Ensure no weird overflow from inner flex layouts */
+.program,
+.about,
+.stats,
+.news,
+.research,
+.publishers {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+/* HERO */
+
+.rs-hero {
+  background: radial-gradient(circle at 0% 0%, #3ac0ff 0, #0050d8 40%, #012a8f 100%);
+  color: #fff;
+  padding: 32px 20px 90px 20px;
+  text-align: center;
+}
+
+.rs-hero-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.rs-hero-tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: none;
+  margin-bottom: 22px;
+}
+
+.rs-hero-title {
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  margin: 0 0 14px 0;
+}
+
+.rs-hero-sub {
+  font-size: 15px;
+  line-height: 1.7;
+  opacity: 0.9;
+  margin: 0 0 26px 0;
+}
+
+.rs-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 26px;
+  background: #ffc933;
+  color: #10214f;
+  border-radius: 999px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+}
+
+.rs-btn-primary:hover {
+  background: #ffdf71;
+}
+
+.rs-btn-arrow {
+  font-size: 14px;
+}
+
+/* GENERIC SECTION WRAPPERS */
+
+.rs-section-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 60px 20px 40px 20px;
+}
+
+.rs-section-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #26439a;
+  text-align: center;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.02em;
+}
+
+.rs-section-sub {
+  font-size: 13px;
+  color: #7c869f;
+  text-align: center;
+  margin: 0 0 32px 0;
+}
+
+/* SERVICES */
+
+.rs-services {
+  background: #f7f8fc;
+}
+
+/* blocks */
+
+.rs-block {
+  margin-top: 26px;
+}
+
+.rs-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.rs-block-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* vertical color bar on left */
+.rs-block-color {
+  width: 3px;
+  height: 26px;
+  border-radius: 999px;
+}
+
+.rs-block-color-blue {
+  background: #26439a;
+}
+.rs-block-color-yellow {
+  background: #ffcc33;
+}
+
+/* title text – bold, a bit tighter letter spacing */
+.rs-block-title {
+  font-size: 16px;
+  letter-spacing: 0.11em;   /* slightly reduced */
+  text-transform: uppercase;
+  color: #252f4a;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* level pills, with per-level color overrides */
+.rs-level-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef2ff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* B.Tech / UG – blue text */
+.rs-level-pill--blue {
+  color: #26439a;
+  background: #e7efff;
+}
+
+/* M.Tech / PhD – yellow text */
+.rs-level-pill--yellow {
+  color: #f6c33b;
+  background: #fff5d6;
+}
+
+/* Professional – blue text */
+.rs-level-pill--blue-outline {
+  color: #26439a;
+  background: #e7efff;
+}
+
+/* card grids */
+
+.rs-card-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.rs-card-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.rs-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 20px 18px 20px;
+  box-shadow: 0 10px 28px rgba(15, 35, 95, 0.04);
+}
+
+/* card icon – fixed dark blue SVG inside soft container */
+.rs-card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 11px;
+  background: #f1f4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.rs-card-icon svg,
+.rs-card-icon img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* all icons should use the same dark blue fill */
+.rs-card-icon svg path,
+.rs-card-icon svg rect,
+.rs-card-icon svg circle {
+  fill: #26439a;
+}
+
+.rs-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222c4b;
+  margin: 0 0 6px 0;
+}
+
+.rs-card-text {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #7b879e;
+  margin: 0;
+}
+
+/* CTA BAND (unchanged) */
+
+.rs-cta {
+  padding: 60px 20px;
+  background: radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.18) 0, rgba(255, 255, 255, 0) 40%), #f7f7fc;
+}
+
+.rs-cta-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #12338f, #102f87);
+  border-radius: 18px;
+  text-align: center;
+  padding: 40px 20px 42px 20px;
+  color: #ffffff;
+  box-shadow: 0 18px 40px rgba(6, 20, 70, 0.55);
+}
+
+.rs-cta-title {
+  font-size: 26px;
+  margin: 0 0 10px 0;
+  letter-spacing: 0.01em;
+}
+
+.rs-cta-text {
+  font-size: 12.5px;
+  opacity: 0.92;
+  margin: 0 0 22px 0;
+}
+
+.rs-btn-secondary {
+  padding: 10px 26px;
+  border-radius: 999px;
+  border: none;
+  background: #ffffff;
+  color: #16306d;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+}
+
+.rs-btn-secondary:hover {
+  background: #f3f5ff;
+}
+
+
+/* WHY SECTION */
+
+.rs-why {
+  background: #f7f7fc;
+  padding: 54px 0 70px 0;
+}
+
+.rs-why-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+/* title + blue underline */
+
+.rs-why-inner .rs-section-title {
+  margin-bottom: 10px;
+}
+
+.rs-why-underline {
+  width: 70px;
+  height: 3px;
+  background: #1f5bff;
+  border-radius: 999px;
+  margin: 0 auto;
+}
+
+.rs-why-grid {
+  margin-top: 28px;
+}
+
+.rs-card-grid-2 {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* cards – lighter fill, more height like main.jpg */
+
+.rs-why-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 22px 26px 22px 26px;
+  box-shadow: 0 12px 28px rgba(15, 35, 95, 0.05);
+  border-left: 5px solid #2f6bff;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 120px;
+}
+
+.rs-why-card--yellow {
+  border-left-color: #ffcc33;
+}
+
+.rs-why-card--lightblue {
+  border-left-color: #44c4ff;
+}
+
+/* icon above text */
+
+.rs-why-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: #f3f6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.rs-why-icon img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* text sizes / colors */
+
+.rs-why-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2d5c;
+  margin: 0 0 6px 0;
+}
+
+.rs-why-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #7b879e;
+  margin: 0;
+}
+
+
+/* FOOTER CONTACT */
+
+.rs-footer {
+  background: #031840;              /* deep blue like main footer */
+  color: #ffffff;
+  padding: 80px 20px 90px 20px;
+}
+
+.rs-footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rs-footer-tag {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #6c8cff;
+  margin-bottom: 10px;
+}
+
+.rs-footer-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+.rs-footer-sub {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #d2ddff;
+  margin: 0 0 40px 0;
+}
+
+/* card */
+
+.rs-footer-card {
+  max-width: 420px;
+  min-height: 170px;
+  margin: 0 auto;
+  background: #06264d;
+  border-radius: 22px;
+  padding: 26px 32px 24px 32px;
+  text-align: left;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(22, 44, 130, 0.5);
+}
+
+.rs-footer-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.rs-footer-card-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: #102b73;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rs-footer-header-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.rs-footer-card-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.rs-footer-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.rs-footer-card-text {
+  font-size: 11.5px;
+  color: #c5d1ff;
+  margin: 0;
+}
+
+.rs-footer-card-divider {
+  height: 1px;
+  width: 100%;
+  background: #23356d;
+  margin: 14px 0 10px 0;
+}
+
+/* contact rows */
+
+.rs-footer-contact-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rs-footer-contact-row {
+  display: flex;
+  align-items: center;
+  font-size: 12.5px;
+  color: #cfd8ff;
+}
+
+.rs-footer-contact-icon-box {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.rs-footer-contact-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  display: block;
+  margin: 0;
+  transform: none;
+}
+
+.rs-footer-contact-value {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.rs-footer-contact-value:hover {
+  text-decoration: underline;
+}
+
+/* responsive */
+
+@media (max-width: 480px) {
+  .rs-footer-card {
+    max-width: 100%;
+    padding: 22px 20px 20px 20px;
+  }
+}
+
+/* existing global responsive rules (unchanged) */
+
+@media (max-width: 900px) {
+  .rs-card-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .rs-hero-title {
+    font-size: 30px;
+  }
+  .rs-card-grid-3,
+  .rs-card-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .rs-block-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .rs-cta-inner {
+    padding: 32px 18px 34px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rs-hero {
+    padding-bottom: 70px;
+  }
+  .rs-hero-title {
+    font-size: 26px;
+  }
+}
+
+/* MODAL STYLES */
+
+.rs-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.rs-modal-overlay.rs-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.rs-modal {
+  width: min(640px, 90vw);
+  max-height: 90vh;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.45);
+  overflow-y: auto;
+  padding: 0 24px 24px 24px;
+  position: relative;
+}
+
+.rs-modal-header {
+  position: sticky;
+  top: 0;
+  background: #0f2d83;
+  margin: 0 -24px 16px -24px;
+  padding: 16px 24px;
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+}
+
+.rs-modal-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.rs-modal-close {
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.rs-modal-intro {
+  margin: 8px 0 16px 0;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+#consultation-form {
+  font-size: 13px;
+}
+
+.rs-field {
+  margin-bottom: 14px;
+}
+
+.rs-field-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rs-field-row .rs-field {
+  flex: 1 1 0;
+}
+
+.rs-field label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.rs-required {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+.rs-field input[type="text"],
+.rs-field input[type="email"],
+.rs-field input[type="tel"],
+.rs-field input[type="date"],
+.rs-field select,
+.rs-field textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rs-field input:focus,
+.rs-field select:focus,
+.rs-field textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4);
+}
+
+/* Radio groups */
+
+.rs-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 6px 16px;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.rs-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.rs-options input[type="radio"] {
+  accent-color: #2563eb;
+}
+
+/* "Other" inline */
+
+.rs-inline-other {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rs-inline-other input[type="text"] {
+  flex: 1 1 auto;
+}
+
+/* Consent */
+
+.rs-consent {
+  margin-top: 10px;
+}
+
+.rs-consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 12px;
+  color: #374151;
+}
+
+.rs-consent-label input[type="checkbox"] {
+  margin-top: 2px;
+  accent-color: #2563eb;
+}
+
+/* Errors */
+
+.rs-error {
+  display: block;
+  min-height: 14px;
+  font-size: 11px;
+  color: #b91c1c;
+  margin-top: 2px;
+}
+
+/* Submit */
+
+.rs-actions {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.rs-submit-btn {
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(90deg, #0f2d83, #2563eb);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.rs-submit-btn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
+}
+
+/* Modal mobile */
+
+@media (max-width: 640px) {
+  .rs-modal {
+    width: 95vw;
+    padding: 0 16px 16px 16px;
+  }
+
+  .rs-modal-header {
+    padding-inline: 16px;
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .rs-card-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .rs-hero-title {
+    font-size: 30px;
+  }
+  .rs-card-grid-3,
+  .rs-card-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .rs-block-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .rs-cta-inner {
+    padding: 32px 18px 34px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rs-hero {
+    padding-bottom: 70px;
+  }
+  .rs-hero-title {
+    font-size: 26px;
+  }
+}
+
+
+/* Footer */
+footer {
+  background-color: #f5f5f5;
+  color: #000;
+  font-size: 14px;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 40px;
+}
+
+.footer-section {
+  flex: 1 1 200px;
+  margin-bottom: 12px;
+}
+
+.footer-section h4 {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.social-icons a {
+  font-size: 20px;
+  color: #000;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #0073e6;
+}
+
+.bottom-links {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.footer-bottom {
+  background-color: #1439b3;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.footer-bottom .left p:first-child {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.footer-bottom .right {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-bottom .right a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-bottom .right a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .footer-bottom .right {
+    justify-content: center;
+  }
+
+  .bottom-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+  }
+}</style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="./images/cropped-Gudsky-Research-1-278x93.png" alt="Gudsky Logo">
+            </div>
+            <!-- Hamburger button (visible only on small screens) -->
+            <button class="hamburger" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"
+                aria-controls="mainNav">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-links" id="mainNav">
+                <li><a href="./index.html" class="inter-adi">Home</a></li>
+                <li><a href="./ResearchIntake.html" class="inter-adi nav-cta"><span class="nav-cta-one">Research Intake
+                            2026</span></a></li>
+                <li><a href="./publications.html" class="inter-adi">Publications</a></li>
+                <li><a href="./coming-soon.html" class="inter-adi">Career</a></li>
+                <li><a href="./coming-soon.html" class="inter-adi">Membership</a></li>
+                <li><a href="./coming-soon.html" class="inter-adi">Research Support</a></li>
+                <li><a href="#gudsky-about" class="inter-adi">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <header class="rs-hero">
+        <div class="rs-hero-inner">
+            <div class="rs-hero-tag">For Students, Scholars & Faculty</div>
+            <h1 class="rs-hero-title">
+                Accelerating Academic<br>
+                Excellence
+            </h1>
+            <p class="rs-hero-sub">
+                We provide end-to-end research guidance, transforming complex<br>
+                ideas into high-impact publications.
+            </p>
+            <!-- Consultation modal Button -->
+            <button id="open-consultation-btn" class="rs-btn-primary">
+                Request Consultation
+                <span class="rs-btn-arrow">➜</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- CONSULTATION MODAL -->
+    <div id="consultation-modal" class="rs-modal-overlay" aria-hidden="true">
+        <div class="rs-modal">
+            <div class="rs-modal-header">
+                <h2 class="rs-modal-title">Initiate Your Consultation</h2>
+                <button type="button" class="rs-modal-close" id="close-consultation-btn" aria-label="Close">
+                    &times;
+                </button>
+            </div>
+
+            <p class="rs-modal-intro">
+                Tell us about your research needs. Our team will review your requirements
+                and respond within 24–48 hours.
+            </p>
+
+            <form id="consultation-form" novalidate>
+                <!-- Full Name -->
+                <div class="rs-field">
+                    <label for="fullName">Full Name <span class="rs-required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" required>
+                    <span class="rs-error" data-for="fullName"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="rs-field">
+                    <label for="email">Email <span class="rs-required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="rs-error" data-for="email"></span>
+                </div>
+
+                <!-- Address -->
+                <div class="rs-field">
+                    <label for="address">Address <span class="rs-required">*</span></label>
+                    <textarea id="address" name="address" rows="2" required></textarea>
+                    <span class="rs-error" data-for="address"></span>
+                </div>
+
+                <!-- Phone -->
+                <div class="rs-field">
+                    <label for="phone">Phone Number <span class="rs-required">*</span></label>
+                    <input type="tel" id="phone" name="phone" inputmode="numeric" placeholder="10-digit mobile number"
+                        required>
+                    <span class="rs-error" data-for="phone"></span>
+                </div>
+
+                <!-- Academic Level & University -->
+                <div class="rs-field-row">
+                    <div class="rs-field">
+                        <label for="academicLevel">Current Academic Level <span class="rs-required">*</span></label>
+                        <select id="academicLevel" name="academicLevel" required>
+                            <option value="">Select level</option>
+                            <option>B.Tech / Undergraduate</option>
+                            <option>M.Tech / Postgraduate</option>
+                            <option>PhD Scholar</option>
+                            <option>Faculty / Researcher</option>
+                            <option>Industry Professional</option>
+                        </select>
+                        <span class="rs-error" data-for="academicLevel"></span>
+                    </div>
+
+                    <div class="rs-field">
+                        <label for="university">University / Organization</label>
+                        <input type="text" id="university" name="university">
+                        <span class="rs-error" data-for="university"></span>
+                    </div>
+                </div>
+
+                <!-- Department / Domain -->
+                <div class="rs-field">
+                    <label for="department">Department / Domain <span class="rs-required">*</span></label>
+                    <input type="text" id="department" name="department" required>
+                    <span class="rs-error" data-for="department"></span>
+                </div>
+
+                <!-- Type of Support Required -->
+                <div class="rs-field">
+                    <label>Type of Support Required <span class="rs-required">*</span></label>
+                    <div class="rs-options">
+                        <label><input type="radio" name="supportType" value="Topic & Domain Selection" required> Topic
+                            &amp; Domain Selection</label>
+                        <label><input type="radio" name="supportType" value="Literature Review / SLR"> Literature Review
+                            / SLR</label>
+                        <label><input type="radio" name="supportType" value="Proposal / Synopsis"> Proposal /
+                            Synopsis</label>
+                        <label><input type="radio" name="supportType" value="Algorithm Development"> Algorithm
+                            Development</label>
+                        <label><input type="radio" name="supportType" value="Implementation / Coding"> Implementation /
+                            Coding</label>
+                        <label><input type="radio" name="supportType" value="Thesis / Dissertation Writing"> Thesis /
+                            Dissertation Writing</label>
+                        <label><input type="radio" name="supportType" value="Paper Writing & Publication"> Paper Writing
+                            &amp; Publication</label>
+                        <label><input type="radio" name="supportType" value="Reviewer Response"> Reviewer
+                            Response</label>
+                        <label><input type="radio" name="supportType" value="Grant Proposal"> Grant Proposal</label>
+                        <label><input type="radio" name="supportType" value="Profile Management (Scopus / ORCID)">
+                            Profile Management (Scopus / ORCID)</label>
+                        <label class="rs-inline-other">
+                            <input type="radio" name="supportType" value="Other" id="supportTypeOtherRadio">
+                            Other:
+                            <input type="text" id="supportTypeOther" name="supportTypeOther"
+                                placeholder="Please specify">
+                        </label>
+                    </div>
+                    <span class="rs-error" data-for="supportType"></span>
+                </div>
+
+                <!-- Research Level -->
+                <div class="rs-field">
+                    <label>Research Level <span class="rs-required">*</span></label>
+                    <div class="rs-options">
+                        <label><input type="radio" name="researchLevel" value="UG Project" required> UG Project</label>
+                        <label><input type="radio" name="researchLevel" value="M.Tech Thesis"> M.Tech Thesis</label>
+                        <label><input type="radio" name="researchLevel" value="PhD Research"> PhD Research</label>
+                        <label><input type="radio" name="researchLevel" value="Journal Publication"> Journal
+                            Publication</label>
+                        <label><input type="radio" name="researchLevel" value="Grant Proposal"> Grant Proposal</label>
+                        <label class="rs-inline-other">
+                            <input type="radio" name="researchLevel" value="Other" id="researchLevelOtherRadio">
+                            Other:
+                            <input type="text" id="researchLevelOther" name="researchLevelOther"
+                                placeholder="Please specify">
+                        </label>
+                    </div>
+                    <span class="rs-error" data-for="researchLevel"></span>
+                </div>
+
+                <!-- Current Research Status -->
+                <div class="rs-field">
+                    <label>Current Research Status <span class="rs-required">*</span></label>
+                    <div class="rs-options">
+                        <label><input type="radio" name="researchStatus" value="Just Started" required> Just
+                            Started</label>
+                        <label><input type="radio" name="researchStatus" value="Topic selected"> Topic selected</label>
+                        <label><input type="radio" name="researchStatus" value="Literature review in progress">
+                            Literature review in progress</label>
+                        <label><input type="radio" name="researchStatus" value="Implementation ongoing"> Implementation
+                            ongoing</label>
+                        <label><input type="radio" name="researchStatus" value="Paper submitted"> Paper
+                            submitted</label>
+                        <label><input type="radio" name="researchStatus" value="Reviewer Comments received"> Reviewer
+                            Comments received</label>
+                        <label class="rs-inline-other">
+                            <input type="radio" name="researchStatus" value="Other" id="researchStatusOtherRadio">
+                            Other:
+                            <input type="text" id="researchStatusOther" name="researchStatusOther"
+                                placeholder="Please specify">
+                        </label>
+                    </div>
+                    <span class="rs-error" data-for="researchStatus"></span>
+                </div>
+
+                <!-- Target Journal Type -->
+                <div class="rs-field">
+                    <label>Target Journal Type</label>
+                    <div class="rs-options">
+                        <label><input type="radio" name="journalType" value="SCI"> SCI</label>
+                        <label><input type="radio" name="journalType" value="ESCI"> ESCI</label>
+                        <label><input type="radio" name="journalType" value="Scopus"> Scopus</label>
+                        <label><input type="radio" name="journalType" value="IEEE Conference"> IEEE Conference</label>
+                        <label class="rs-inline-other">
+                            <input type="radio" name="journalType" value="Not decided yet" id="journalTypeNotDecided">
+                            Not decided yet
+                        </label>
+                    </div>
+                    <span class="rs-error" data-for="journalType"></span>
+                </div>
+
+                <!-- Paper Deadline -->
+                <div class="rs-field">
+                    <label for="deadline">Paper Deadline (if any)</label>
+                    <input type="date" id="deadline" name="deadline">
+                    <span class="rs-error" data-for="deadline"></span>
+                </div>
+
+                <!-- Brief Description -->
+                <div class="rs-field">
+                    <label for="briefDescription">Brief Description of Your Research Problem / Idea <span
+                            class="rs-required">*</span></label>
+                    <textarea id="briefDescription" name="briefDescription" rows="4" required></textarea>
+                    <span class="rs-error" data-for="briefDescription"></span>
+                </div>
+
+                <!-- Specific Challenges -->
+                <div class="rs-field">
+                    <label for="challenges">Specific Challenges You Are Facing</label>
+                    <textarea id="challenges" name="challenges" rows="3"></textarea>
+                    <span class="rs-error" data-for="challenges"></span>
+                </div>
+
+                <!-- Consent & Declaration -->
+                <div class="rs-field rs-consent">
+                    <label class="rs-consent-label">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <span>I confirm that the information provided is accurate and I agree to be contacted by Gudsky
+                            Research Foundation.</span>
+                        <span class="rs-required">*</span>
+                    </label>
+                    <span class="rs-error" data-for="consent"></span>
+                </div>
+
+                <!-- Submit -->
+                <div class="rs-actions">
+                    <button type="submit" class="rs-submit-btn">
+                        Submit Consultation Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- RESEARCH SUPPORT SERVICES -->
+        <section class="rs-services">
+            <div class="rs-section-inner">
+                <h2 class="rs-section-title">Research Support Services</h2>
+                <p class="rs-section-sub">
+                    Tailored guidance for every stage of your academic journey.
+                </p>
+
+                <!-- BLOCK 1: PROJECT GUIDANCE -->
+                <div class="rs-block">
+                    <div class="rs-block-header">
+                        <div class="rs-block-title-wrap">
+                            <span class="rs-block-color rs-block-color-blue"></span>
+                            <h3 class="rs-block-title">PROJECT GUIDANCE AND SUPPORT</h3>
+                        </div>
+                        <span class="rs-level-pill rs-level-pill--blue">B.Tech / UG Level</span>
+                    </div>
+
+                    <div class="rs-card-grid rs-card-grid-3">
+                        <article class="rs-card">
+                            <div class="rs-card-icon">
+                                <!-- fixed dark-blue SVG icon -->
+                                <img src="images/icons/Vector.svg" alt="Topic &amp; Domain">
+                            </div>
+                            <h4 class="rs-card-title">Topic &amp; Domain Selection</h4>
+                            <p class="rs-card-text">
+                                Innovative, futuristic topics aligned with current industry trends. Complete feasibility
+                                analysis included.
+                            </p>
+                        </article>
+
+                        <article class="rs-card">
+                            <div class="rs-card-icon">
+                                <img src="images/icons/Vector-1.svg" alt="Technology Training">
+                            </div>
+                            <h4 class="rs-card-title">Technology Training</h4>
+                            <p class="rs-card-text">
+                                Comprehensive hands-on workshops on programming, version control (Git), and Agile
+                                methodology.
+                            </p>
+                        </article>
+
+                        <article class="rs-card">
+                            <div class="rs-card-icon">
+                                <img src="images/icons/Vector-2.svg" alt="Implementation Guidance">
+                            </div>
+                            <h4 class="rs-card-title">Implementation Guidance</h4>
+                            <p class="rs-card-text">
+                                System architecture design, industry-standard coding practices, and rigorous testing
+                                support.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- BLOCK 2: THESIS / DISSERTATION -->
+                <div class="rs-block">
+                    <div class="rs-block-header">
+                        <div class="rs-block-title-wrap">
+                            <span class="rs-block-color rs-block-color-yellow"></span>
+                            <h3 class="rs-block-title">THESIS/DISSERTATION GUIDANCE</h3>
+                        </div>
+                        <span class="rs-level-pill rs-level-pill--yellow">M.Tech / PhD Level</span>
+                    </div>
+
+                    <div class="rs-card-grid rs-card-grid-3">
+                        <article class="rs-card">
+                            <h4 class="rs-card-title">Research Topic &amp; Gap</h4>
+                            <p class="rs-card-text">
+                                Comprehensive Scopus literature survey to formulate novel, defensible problem
+                                statements.
+                            </p>
+                        </article>
+
+                        <article class="rs-card">
+                            <h4 class="rs-card-title">Proposal &amp; Synopsis</h4>
+                            <p class="rs-card-text">
+                                Development of clear research objectives, robust methodology design, and milestone
+                                planning.
+                            </p>
+                        </article>
+
+                        <article class="rs-card">
+                            <h4 class="rs-card-title">Systematic Literature Review</h4>
+                            <p class="rs-card-text">
+                                Critical analysis, synthesis of existing work, and comprehensive gap documentation.
+                            </p>
+                        </article>
+
+                        <article class="rs-card">
+                            <h4 class="rs-card-title">Algorithm Optimization</h4>
+                            <p class="rs-card-text">
+                                Experimental design assistance, algorithm development, and statistical hypothesis
+                                testing.
+                            </p>
+                        </article>
+
+                        <article class="rs-card">
+                            <h4 class="rs-card-title">Reviewer Response</h4>
+                            <p class="rs-card-text">
+                                Detailed analysis of reviewer comments, rebuttal letter crafting, and strategic revision
+                                support.
+                            </p>
+                        </article>
+
+                        <article class="rs-card">
+                            <h4 class="rs-card-title">Thesis Writing</h4>
+                            <p class="rs-card-text">
+                                Chapter-wise writing guidance, professional proofreading, and Viva-Voce presentation
+                                design.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- BLOCK 3: FACULTY SUPPORT -->
+                <div class="rs-block">
+                    <div class="rs-block-header">
+                        <div class="rs-block-title-wrap">
+                            <span class="rs-block-color rs-block-color-blue"></span>
+                            <h3 class="rs-block-title">FACULTY AND PROFESSIONAL RESEARCH SUPPORT</h3>
+                        </div>
+                        <span class="rs-level-pill rs-level-pill--blue-outline">Professional Level</span>
+                    </div>
+
+                    <div class="rs-card-grid rs-card-grid-3">
+                        <article class="rs-card">
+                            <h4 class="rs-card-title">High-Impact Publication</h4>
+                            <p class="rs-card-text">
+                                Targeting SCI/ESCI/Scopus Q1/Q2 journals, manuscript development, and submission
+                                management.
+                            </p>
+                        </article>
+
+                        <article class="rs-card">
+                            <h4 class="rs-card-title">Grant Proposal Drafting</h4>
+                            <p class="rs-card-text">
+                                Identifying funding (DST, SERB) and writing comprehensive proposals with budget
+                                planning.
+                            </p>
+                        </article>
+
+                        <article class="rs-card">
+                            <h4 class="rs-card-title">Profile Management</h4>
+                            <p class="rs-card-text">
+                                ORCID/Scopus ID configuration, h-index enhancement strategies, and Top 2% Scientist
+                                guidance.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CTA BAND -->
+        <section class="rs-cta">
+            <div class="rs-cta-inner">
+                <h2 class="rs-cta-title">Start Your Research Journey Today</h2>
+                <p class="rs-cta-text">
+                    Don’t let research challenges hold you back. Partner with Gudsky and<br>
+                    achieve academic excellence.
+                </p>
+                <button class="rs-btn-secondary">Get Started Now</button>
+            </div>
+        </section>
+
+
+        <!-- WHY CHOOSE GUDSKY -->
+        <section class="rs-why">
+            <div class="rs-why-inner">
+                <h2 class="rs-section-title">Why Choose Gudsky?</h2>
+                <div class="rs-why-underline"></div>
+
+                <div class="rs-card-grid rs-card-grid-2 rs-why-grid">
+
+                    <article class="rs-why-card">
+                        <div class="rs-why-icon">
+                            <img src="images/icons/Vector-3.svg" alt="PhD Qualified Experts">
+                        </div>
+                        <h4 class="rs-why-title">PhD Qualified Experts</h4>
+                        <p class="rs-why-text">
+                            Access to a team of published researchers and industry professionals.
+                        </p>
+                    </article>
+
+                    <article class="rs-why-card rs-why-card--lightblue">
+                        <div class="rs-why-icon">
+                            <img src="images/icons/Vector-4.svg" alt="End-to-End Assistance">
+                        </div>
+                        <h4 class="rs-why-title">End-to-End Assistance</h4>
+                        <p class="rs-why-text">
+                            Personalized, step-by-step guidance from initial ideation to defense.
+                        </p>
+                    </article>
+
+                    <article class="rs-why-card rs-why-card--yellow">
+                        <div class="rs-why-icon">
+                            <img src="images/icons/Vector-5.svg" alt="Guaranteed Originality">
+                        </div>
+                        <h4 class="rs-why-title">Guaranteed Originality</h4>
+                        <p class="rs-why-text">
+                            Strict adherence to academic ethics and 100% plagiarism-free content.
+                        </p>
+                    </article>
+
+                    <article class="rs-why-card">
+                        <div class="rs-why-icon">
+                            <img src="images/icons/Vector-6.svg" alt="High Success Rate">
+                        </div>
+                        <h4 class="rs-why-title">High Success Rate</h4>
+                        <p class="rs-why-text">
+                            Proven track record with successful publications in SCI/Scopus journals.
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <!-- FOOTER CONTACT -->
+    <footer class="rs-footer">
+        <div class="rs-footer-inner">
+            <div class="rs-footer-tag">GET IN TOUCH</div>
+            <h2 class="rs-footer-title">Connect With Us</h2>
+            <p class="rs-footer-sub">
+                Ready to elevate your research? Our leadership team is ready to guide you.
+            </p>
+
+            <div class="rs-footer-card">
+                <div class="rs-footer-card-header">
+                    <div class="rs-footer-card-icon">
+                        <img src="images/icons/Vector-7.svg" alt="Mail" class="rs-footer-header-icon">
+                    </div>
+
+                    <div class="rs-footer-card-header-text">
+                        <div class="rs-footer-card-title">General Support</div>
+                        <p class="rs-footer-card-text">
+                            For initial inquiries, partnerships, and general information.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rs-footer-card-divider"></div>
+
+                <div class="rs-footer-contact-grid">
+                    <div class="rs-footer-contact-row">
+                        <span class="rs-footer-contact-icon-box">
+                            <img src="images/icons/Vector-8.svg" alt="" class="rs-footer-contact-icon">
+                        </span>
+                        <a href="mailto:researchsupport@gudsky.org" class="rs-footer-contact-value">
+                            researchsupport@gudsky.org
+                        </a>
+                    </div>
+
+                    <div class="rs-footer-contact-row">
+                        <span class="rs-footer-contact-icon-box">
+                            <img src="images/icons/Vector-9.svg" alt="" class="rs-footer-contact-icon">
+                        </span>
+                        <a href="tel:+918420536631" class="rs-footer-contact-value">
+                            +91 84205 36631
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./Coming-Soon.html">Career</a></li>
+                    <li><a href="./ResearchIntake.html">Research</a></li>
+                    <li><a href="./about.html">About</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Programs</h4>
+                <ul>
+                    <li><a href="./ResearchIntake.html">Research Methodology</a></li>
+                    <li><a href="./ResearchIntake.html">Data Analytics</a></li>
+                    <li><a href="./ResearchIntake.html">Technology Innovation</a></li>
+                    <li><a href="./ResearchIntake.html">Academic Writing</a></li>
+                    <li><a href="./ResearchIntake.html">Professional Development</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p>Mail: <a href="mailto:connect@gudsky.org">connect@gudsky.org</a></p>
+                <p>Phone: +91 84205 36631</p>
+                <p>Address: 1/11 Anandnagar Vidyasagar Pally, Liluah, Howrah - 711203</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Connect with Us</h4>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/gudskyresearch/"><i class="fa-brands fa-facebook-square"
+                            aria-hidden="true"></i></a>
+                    <a href="https://x.com/gudsky_research"><i class="fa-brands fa-x-twitter"
+                            aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/gudskyresearch/"><i class="fa-brands fa-instagram"
+                            aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/company/gudsky/?viewAsMember=true"><i
+                            class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+
+                </div>
+                <div class="bottom-links">
+                    <a href="#">Sitemap</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="left">
+                <p><strong>Gudsky Research Foundation</strong></p>
+                <p>&copy; 2025 Gudsky Research Foundation. All rights reserved.</p>
+            </div>
+            <div class="right">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL SCRIPT -->
+    <script>
+        (function () {
+            const openBtn = document.getElementById('open-consultation-btn');
+            const modal = document.getElementById('consultation-modal');
+            const closeBtn = document.getElementById('close-consultation-btn');
+            const form = document.getElementById('consultation-form');
+
+            if (!openBtn || !modal || !closeBtn || !form) return;
+
+            function openModal() {
+                modal.classList.add('rs-open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('rs-open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            openBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal();
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            function setError(name, message) {
+                const span = form.querySelector('.rs-error[data-for="' + name + '"]');
+                if (span) span.textContent = message || '';
+            }
+
+            function clearAllErrors() {
+                form.querySelectorAll('.rs-error').forEach(s => s.textContent = '');
+            }
+
+            function checkRadio(groupName, errorKey) {
+                const selected = form.querySelector('input[name="' + groupName + '"]:checked');
+                if (!selected) {
+                    setError(errorKey, 'Please select an option.');
+                    return false;
+                }
+                if (selected.value === 'Other') {
+                    const otherInput = document.getElementById(groupName + 'Other');
+                    if (otherInput && !otherInput.value.trim()) {
+                        setError(errorKey, 'Please specify for "Other".');
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            form.addEventListener('submit', function (e) {
+                clearAllErrors();
+                let valid = true;
+
+                const fullName = form.fullName.value.trim();
+                if (!fullName) {
+                    setError('fullName', 'Please enter your full name.');
+                    valid = false;
+                }
+
+                const email = form.email.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email) {
+                    setError('email', 'Email is required.');
+                    valid = false;
+                } else if (!emailRegex.test(email)) {
+                    setError('email', 'Please enter a valid email address.');
+                    valid = false;
+                }
+
+                const address = form.address.value.trim();
+                if (!address) {
+                    setError('address', 'Address is required.');
+                    valid = false;
+                }
+
+                const phone = form.phone.value.replace(/\D/g, '');
+                if (!phone) {
+                    setError('phone', 'Phone number is required.');
+                    valid = false;
+                } else if (phone.length !== 10) {
+                    setError('phone', 'Please enter a 10-digit mobile number.');
+                    valid = false;
+                }
+
+                if (!form.academicLevel.value) {
+                    setError('academicLevel', 'Please select your academic level.');
+                    valid = false;
+                }
+
+                if (!form.department.value.trim()) {
+                    setError('department', 'Department / Domain is required.');
+                    valid = false;
+                }
+
+                if (!checkRadio('supportType', 'supportType')) valid = false;
+                if (!checkRadio('researchLevel', 'researchLevel')) valid = false;
+                if (!checkRadio('researchStatus', 'researchStatus')) valid = false;
+
+                const brief = form.briefDescription.value.trim();
+                if (!brief) {
+                    setError('briefDescription', 'Please describe your research problem or idea.');
+                    valid = false;
+                }
+
+                if (!form.consent.checked) {
+                    setError('consent', 'You must agree to the consent & declaration.');
+                    valid = false;
+                }
+
+                if (!valid) {
+                    e.preventDefault();
+                    return;
+                }
+
+                // When you connect to backend, handle form submission here.
+                // e.preventDefault(); // keep commented out when you want real submit
+            });
+        })();
+    </script>
+
+</body>
+
+</html>
