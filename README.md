@@ -51,7 +51,7 @@ skyresearch/
 4. Import provided SQL file
 5. Start Apache & MySQL
 6. Open:
-   http://localhost/skyresearch
+   http://localhost:8081/skyresearch
 
 ---
 
